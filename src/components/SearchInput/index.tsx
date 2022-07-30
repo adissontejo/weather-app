@@ -1,4 +1,4 @@
-import { KeyboardEvent, useEffect, useId, useState } from 'react';
+import { KeyboardEvent, useEffect, useId, useRef, useState } from 'react';
 
 import { Container, Option } from './styles';
 
@@ -15,10 +15,14 @@ export const SearchInput = ({
   items,
   onSelectItem,
 }: SearchInputProps) => {
-  const datalistId = useId();
-
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(-1);
+
+  const inputRef = useRef<HTMLInputElement>();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
 
   useEffect(() => {
     setOpen(items.length > 0);
@@ -44,7 +48,7 @@ export const SearchInput = ({
   return (
     <Container open={open}>
       <input
-        list={datalistId}
+        ref={inputRef}
         type="text"
         value={value}
         onChange={onChange && (e => onChange(e.target.value))}
@@ -52,11 +56,7 @@ export const SearchInput = ({
         onFocus={() => setOpen(items.length > 0)}
         onBlur={() => [setOpen(false), setHover(-1)]}
       />
-      <div
-        className="options"
-        id={datalistId}
-        onMouseLeave={() => setHover(-1)}
-      >
+      <div className="options" onMouseLeave={() => setHover(-1)}>
         {items.map((item, index) => (
           <Option
             key={item}

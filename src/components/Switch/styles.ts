@@ -15,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export type ToggleProps = {
-  on?: boolean;
+  enabled: boolean;
 };
 
 export const Toggle = styled.label<ToggleProps>`
@@ -26,7 +26,7 @@ export const Toggle = styled.label<ToggleProps>`
 
     width: 50px;
     height: 30px;
-    background: ${p => (p.on ? '#d2b3c1' : 'rgba(28, 36, 40, 0.49)')};
+    background: ${p => (p.enabled ? '#d2b3c1' : 'rgba(28, 36, 40, 0.49)')};
     border-radius: 20px;
 
     transition: background 0.3s;
@@ -36,7 +36,7 @@ export const Toggle = styled.label<ToggleProps>`
     > .thumb {
       position: absolute;
       top: 5px;
-      left: ${p => (p.on ? '25' : '5')}px;
+      left: ${p => (p.enabled ? '25' : '5')}px;
 
       width: 20px;
       height: 20px;

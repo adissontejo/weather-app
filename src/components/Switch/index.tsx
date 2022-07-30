@@ -26,7 +26,7 @@ export const Switch = ({
         checked={value}
         onChange={onChange && (e => onChange(e.target.checked))}
       />
-      <Toggle htmlFor={inputId} on={value}>
+      <Toggle htmlFor={inputId} enabled={value}>
         <div className="track">
           <div className="thumb" />
         </div>

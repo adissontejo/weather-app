@@ -8,6 +8,14 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
+  html {
+    font-size: 15px;
+
+    ${p => p.theme.media.mobile} {
+      font-size: 12px;
+    }
+  }
+
   body {
     width: 100vw;
     height: 100vh;
@@ -17,5 +25,10 @@ export const GlobalStyle = createGlobalStyle`
 
   body, input, textarea, select {
     font-family: ${p => p.theme.fonts.primary}, sans-serif;
+  }
+
+  input, button, select {
+    border: none;
+    outline: none;
   }
 `;

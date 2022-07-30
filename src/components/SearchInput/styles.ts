@@ -29,7 +29,6 @@ export const Container = styled.div<ContainerProps>`
     left: 0;
 
     margin: 1px 0 0;
-    padding: 15px 0;
 
     visibility: ${p => (p.open ? 'visible' : 'hidden')};
     width: 100%;
@@ -39,7 +38,6 @@ export const Container = styled.div<ContainerProps>`
 
     display: flex;
     flex-direction: column;
-    gap: 15px;
 
     transition: height 0.3s;
   }
@@ -53,6 +51,7 @@ export const Option = styled.button<OptionProps>`
   padding: 0 15px;
 
   width: 100%;
+  height: 40px;
   background: transparent;
 
   color: ${p => (p.hover ? '#d2b3c1' : '#6aa2d1')};
