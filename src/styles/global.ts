@@ -19,7 +19,7 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    background: url(./sky-background.png) no-repeat center;
+    background: url(/sky-background.png) no-repeat center;
     background-size: cover;
   }
 

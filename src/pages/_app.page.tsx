@@ -1,4 +1,5 @@
 import { AppProps } from 'next/app';
+import { appWithTranslation } from 'next-i18next';
 
 import { ContextProvider } from '~/contexts';
 import { StylesProvider } from '~/styles';
@@ -13,4 +14,4 @@ const App = ({ Component, pageProps }: AppProps) => {
   );
 };
 
-export default App;
+export default appWithTranslation(App);

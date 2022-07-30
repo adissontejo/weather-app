@@ -20,6 +20,10 @@ export const Container = styled.div<ContainerProps>`
 
     color: #6aa2d1;
     caret-color: #d2b3c1;
+
+    ::placeholder {
+      color: #6aa2d1;
+    }
   }
 
   > .options {

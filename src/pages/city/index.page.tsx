@@ -1,8 +1,10 @@
-import { GetServerSideProps, NextPage } from 'next';
+import { GetServerSideProps, GetStaticProps, NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { Header } from '~/components';
+import { Footer, Header } from '~/components';
 import { useScale } from '~/hooks';
 import { getWeatherByCity, WeatherData } from '~/services/weather';
 
@@ -17,6 +19,8 @@ const City: NextPage<CityProps> = ({ weatherData }) => {
   const { main } = weatherData;
 
   const { format } = useScale();
+
+  const { t } = useTranslation('city');
 
   return (
     <Container>
@@ -34,22 +38,27 @@ const City: NextPage<CityProps> = ({ weatherData }) => {
           />
         </Display>
         <p className="limits">
-          <b>MAX:</b> <span>{format(main.temp_max)}</span> <b>MIN:</b>{' '}
-          <span>{format(main.temp_min)}</span>
+          <b>MAX:</b> <span>{format(main.temp_max, 'max')}</span> <b>MIN:</b>{' '}
+          <span>{format(main.temp_min, 'min')}</span>
         </p>
         <Link href="/">
-          <More>Ver previsão para os próximos 5 dias</More>
+          <More>{t('prevision')}</More>
         </Link>
       </Main>
+      <Footer />
     </Container>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<CityProps> = async ctx => {
-  const response = await getWeatherByCity(ctx.query.q as string);
+export const getServerSideProps: GetServerSideProps<CityProps> = async ({
+  query,
+  locale,
+}) => {
+  const response = await getWeatherByCity(query.q as string, locale);
 
   return {
     props: {
+      ...(await serverSideTranslations(locale, ['common', 'city'])),
       weatherData: response.data,
     },
   };

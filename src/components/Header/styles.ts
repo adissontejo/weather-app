@@ -9,6 +9,6 @@ export const Container = styled.header`
   justify-content: flex-end;
 
   ${p => p.theme.media.mobile} {
-    padding: 50px 20px 0;
+    padding: 20px 20px 0;
   }
 `;

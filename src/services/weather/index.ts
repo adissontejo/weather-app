@@ -47,7 +47,14 @@ export type WeatherData = {
   cod: number;
 };
 
-export const getWeatherByCity = (city: string) =>
-  weatherApi.get(
-    `?appId=${process.env.OPEN_WEATHER_API_KEY}&q=${city}&lang=pt_br`
+export const getWeatherByCity = (city: string, lang: string) => {
+  let language = lang;
+
+  if (language === 'pt-BR') {
+    language = 'pt_br';
+  }
+
+  return weatherApi.get(
+    `?appId=${process.env.OPEN_WEATHER_API_KEY}&q=${city}&lang=${language}`
   ) as Promise<AxiosResponse<WeatherData>>;
+};

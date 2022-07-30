@@ -4,13 +4,18 @@ import { Container, Option } from './styles';
 
 export type SearchInputProps = {
   value?: string;
+  placeholder?: string;
   onChange?: (value: string) => void;
-  items?: string[];
-  onSelectItem?: (item: string) => void;
+  items?: {
+    key: string;
+    value: string;
+  }[];
+  onSelectItem?: (item: { key: string; value: string }) => void;
 };
 
 export const SearchInput = ({
   value,
+  placeholder,
   onChange,
   items,
   onSelectItem,
@@ -40,8 +45,8 @@ export const SearchInput = ({
       e.preventDefault();
 
       setHover(prev => Math.min(prev + 1, items.length - 1));
-    } else if (key === 'Enter' && onSelectItem) {
-      onSelectItem(hover !== -1 ? items[hover] : value);
+    } else if (key === 'Enter' && onSelectItem && hover !== -1) {
+      onSelectItem(items[hover]);
     }
   };
 
@@ -51,6 +56,7 @@ export const SearchInput = ({
         ref={inputRef}
         type="text"
         value={value}
+        placeholder={placeholder}
         onChange={onChange && (e => onChange(e.target.value))}
         onKeyDown={handleKeyDown}
         onFocus={() => setOpen(items.length > 0)}
@@ -59,13 +65,13 @@ export const SearchInput = ({
       <div className="options" onMouseLeave={() => setHover(-1)}>
         {items.map((item, index) => (
           <Option
-            key={item}
+            key={item.key}
             role="option"
             aria-selected={hover === index}
             hover={hover === index}
             onMouseEnter={() => setHover(index)}
           >
-            {item}
+            {item.value}
           </Option>
         ))}
       </div>
