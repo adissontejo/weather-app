@@ -15,19 +15,18 @@ export const Switch = ({
   enabledText,
   onChange,
 }: SwitchProps) => {
-  const id = useId();
+  const inputId = useId();
 
   return (
     <Container>
       {disabledText && <small>{disabledText}</small>}
       <input
-        id={id}
-        name={id}
+        id={inputId}
         type="checkbox"
         checked={value}
         onChange={onChange && (e => onChange(e.target.checked))}
       />
-      <Toggle htmlFor={id} on={value}>
+      <Toggle htmlFor={inputId} on={value}>
         <div className="track">
           <div className="thumb" />
         </div>
