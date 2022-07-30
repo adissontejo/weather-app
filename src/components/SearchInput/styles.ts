@@ -19,7 +19,6 @@ export const Container = styled.div<ContainerProps>`
     border-radius: 10px 10px ${p => (p.open ? '0 0' : '10px 10px')};
 
     color: #6aa2d1;
-    font-size: 1.33rem;
     caret-color: #d2b3c1;
   }
 
@@ -55,7 +54,6 @@ export const Option = styled.button<OptionProps>`
   background: transparent;
 
   color: ${p => (p.hover ? '#d2b3c1' : '#6aa2d1')};
-  font-size: 1.33rem;
   text-align: left;
 
   cursor: pointer;

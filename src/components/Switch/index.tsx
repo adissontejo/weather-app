@@ -2,19 +2,23 @@ import { useId } from 'react';
 
 import { Container, Toggle } from './styles';
 
-export type SwitchProps = {
-  value?: boolean;
+export type SwitchProps<T> = {
+  value?: T;
+  disabledValue?: T;
+  enabledValue?: T;
   disabledText?: string;
   enabledText?: string;
-  onChange?: (value: boolean) => void;
+  onChange?: (value: T) => void;
 };
 
-export const Switch = ({
+export function Switch<T>({
   value,
+  disabledValue,
+  enabledValue,
   disabledText,
   enabledText,
   onChange,
-}: SwitchProps) => {
+}: SwitchProps<T>) {
   const inputId = useId();
 
   return (
@@ -23,10 +27,13 @@ export const Switch = ({
       <input
         id={inputId}
         type="checkbox"
-        checked={value}
-        onChange={onChange && (e => onChange(e.target.checked))}
+        checked={value === enabledValue}
+        onChange={
+          onChange &&
+          (e => onChange(e.target.checked ? enabledValue : disabledValue))
+        }
       />
-      <Toggle htmlFor={inputId} enabled={value}>
+      <Toggle htmlFor={inputId} enabled={value === enabledValue}>
         <div className="track">
           <div className="thumb" />
         </div>
@@ -34,4 +41,4 @@ export const Switch = ({
       {enabledText && <small>{enabledText}</small>}
     </Container>
   );
-};
+}

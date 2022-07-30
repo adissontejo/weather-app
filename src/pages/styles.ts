@@ -7,16 +7,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  > header {
-    padding: 50px 0 0;
-
-    width: calc(100% - 40px);
-    max-width: 1340px;
-
-    display: flex;
-    justify-content: flex-end;
-  }
 `;
 
 export const Main = styled.main`
@@ -31,7 +21,6 @@ export const Main = styled.main`
   > h1 {
     padding: 0 20px;
 
-    color: white;
     font-size: 43px;
     text-align: center;
 

@@ -1,11 +1,14 @@
 import { AppProps } from 'next/app';
 
+import { ContextProvider } from '~/contexts';
 import { StylesProvider } from '~/styles';
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <StylesProvider>
-      <Component {...pageProps} />
+      <ContextProvider>
+        <Component {...pageProps} />
+      </ContextProvider>
     </StylesProvider>
   );
 };

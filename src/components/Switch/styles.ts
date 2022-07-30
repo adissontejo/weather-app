@@ -6,7 +6,6 @@ export const Container = styled.div`
 
   > small {
     color: #d9d9d9;
-    font-size: 1rem;
   }
 
   > input {

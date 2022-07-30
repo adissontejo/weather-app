@@ -2,14 +2,12 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import usePlacesAutocomplete from 'use-places-autocomplete';
 
-import { SearchInput, Switch } from '~/components';
+import { Header, SearchInput } from '~/components';
 
 import { Container, Main } from './styles';
 
 const Home = () => {
   const router = useRouter();
-
-  const [metrics, setMetrics] = useState<'C' | 'F'>('C');
 
   const { value, setValue, suggestions } = usePlacesAutocomplete({
     requestOptions: {
@@ -25,14 +23,7 @@ const Home = () => {
 
   return (
     <Container>
-      <header>
-        <Switch
-          value={metrics === 'C'}
-          onChange={value => setMetrics(value ? 'C' : 'F')}
-          enabledText="°C"
-          disabledText="°F"
-        />
-      </header>
+      <Header />
       <Main>
         <h1>Como está o tempo hoje?</h1>
         <SearchInput

@@ -9,10 +9,10 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   html {
-    font-size: 15px;
+    font-size: 20px;
 
     ${p => p.theme.media.mobile} {
-      font-size: 12px;
+      font-size: 16px;
     }
   }
 
@@ -23,8 +23,9 @@ export const GlobalStyle = createGlobalStyle`
     background-size: cover;
   }
 
-  body, input, textarea, select {
-    font-family: ${p => p.theme.fonts.primary}, sans-serif;
+  body, input, textarea, select, button {
+    color: white;
+    font: 400 1rem ${p => p.theme.fonts.primary}, sans-serif;
   }
 
   input, button, select {
