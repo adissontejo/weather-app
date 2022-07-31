@@ -1,34 +1,128 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Desafio Frontent - Weather App
 
-## Getting Started
+Este é um projeto feito para a seleção do estágio de desenvolvedor frontend da empresa Letras e tem o objetivo de fornecer consultas de tempo e clima relacionadas a diversas cidades.
 
-First, run the development server:
+- [Tecnologias](#tecnologias)
+- [Rodando o projeto](#rodando-o-projeto)
+- [Estrutura de pastas](#estrutura-de-pastas)
+- [Funcionalidades da aplicação](#funcionalidades-da-aplicação)
+
+## Tecnologias
+
+- [NextJS](https://nextjs.org)
+- [Typescript](https://www.typescriptlang.org)
+- [styled-components](https://styled-components.com)
+- [i18next](https://github.com/i18next/next-i18next)
+- [Axios](https://axios-http.com)
+
+## Rodando o projeto
+
+Para rodar o projeto, é necessário ter o
+[NodeJS](https://nodejs.org) instalado em sua máquina, de preferência a versão LTS mais recente.
+
+É recomendada a utilização do [Yarn](https://yarnpkg.com) como Package Manager. Caso ainda não tenha instalado, utilize:
 
 ```bash
-npm run dev
-# or
-yarn dev
+npm install -g yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Instalando as dependências
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+  Para instalar as dependências do projeto, rode o comando `yarn` na pasta raíz.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- Configurações de variáveis de ambiente
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+  Para a utilização das APIs do projeto, é necessária a configuração das chaves de API de cada uma delas. Portanto, copie o conteúdo do arquivo `.env.example` e cole-o em um novo arquivo `.env` na raíz do projeto, onde:
 
-## Learn More
+  1. O campo `GOOGLE_MAPS_API_KEY` deve ser preenchido com a chave da API do Google. A chave deve ser habilitada pelo [Google Cloud Console](https://console.cloud.google.com/) e as APIs `Maps Javascript`, `Places` e `Geocoding` devem ser ativadas para completo funcionamento do projeto.
+  2. O campo `OPEN_WEATHER_API_KEY` deve ser preenchido com a chave da API [Open Weather](https://openweathermap.org/).
 
-To learn more about Next.js, take a look at the following resources:
+- Rodando em ambiente de desenvolvimento
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  Após a instalação das dependências e configuração das variáveis de ambiente, o projeto já está pronto para ser rodado. Para iso, basta executar o seguinte comando na raíz do projeto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  ```bash
+  yarn dev
+  ```
 
-## Deploy on Vercel
+- Rodando em ambiente de produção
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  Para rodar em ambiente de produção, é necessária a geração da pasta `dist`. Para isso, rode o comando:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  ```bash
+  yarn build
+  ```
+
+  Logo após, basta rodar:
+
+  ```bash
+  yarn start
+  ```
+
+## Estrutura de pastas
+
+- Pasta raíz
+
+  Contém arquivos de configuração para determinadasbibliotecas utilizadas no projeto.
+
+  - /public
+
+    Contém arquivos estáticos de imagem e arquivos JSON de tradução a serem utilizados no projeto.
+
+  - /src
+
+    Apresenta todo o código-fonte principal do projeto, é dividida em semi-módulos de organização e é representada como `~` na importação de arquivos através do Typescript.
+
+    - /components
+
+      Pasta com os componentes React utilizados na aplicação, onde cada componente é representado por uma pasta filha contento um arquivo `index.tsx` e outro arquivo `styles.ts`. Também apresenta um arquivo `index.ts` na raíz da pasta para lidar com a exportação e importação de todos os componentes em um único arquivo.
+
+    - /contexts
+
+      Pasta contendo os React Contexts utilizados no projeto. Também apresenta um arquivo `ìndex.tsx` para re-exportação de todos os contexts e exportação do componente Context Provider para simplificação.
+
+    - /hooks
+
+      Pasta com os React Hooks personalizados para se utilizar no projeto.
+
+    - /pages
+
+      Pasta com todos os componentes de página da aplicação. Por padrão do NextJS, todos nomes de arquivos e subpastas dessa pasta representam uma rota da aplicação. É configurado para que apenas os arquivos que terminam com `page.tsx` sejam reconhecidos como rotas. A rota `_app` representa um escopo global do App onde tudo que é contido nela será contido em todas as telas da aplicação. Já a rota `_document` é utilizada para setup de scripts, importação de fontes e outros.
+
+    - /services
+
+      Pasta que contém os serviços de API utilizados no projeto, utilizando o Axios para gerenciá-los.
+
+    - /styles
+
+      Pasta com os estilos e temas globais da aplicação.
+
+    - /types
+
+      Pasta contendo arquivos para tipagem e auxílio na linguagem Typescript para facilitar o desenvolvimento.
+
+## Funcionalidades da aplicação
+
+1. Integração com a Places API do Google
+
+   Para realização da pesquisa de cidades na tela inicial da aplicação, é utilizada a [Places Autocomplete API](https://developers.google.com/maps/documentation/javascript/places-autocomplete) junto com a biblioteca [use-places-autocomplete](https://www.npmjs.com/package/use-places-autocomplete) para React. Quando uma cidade é selecionada, é utilizada a [Geocoding API](https://developers.google.com/maps/documentation/geocoding/overview) para buscar a latitude e a longitude do local, e logo após mandar as informações para a outra tela para serem pesquisadas pela API de clima.
+
+2. Busca de clima da cidade por latitude e longitude
+
+   Como já dito antes, a Geocoding API do Google recupera os dados de latitude e longitude da cidade e os envia para a próxima tela da aplicação. A tela seguinte recebe esses dados e os envia para a [Weather API](https://openweathermap.org/api), que retorna as informações do tempo utilizadas na página.
+
+3. Listagem da previsão do tempo para os próximos 5 dias.
+
+   A terceira tela da aplicação é composta pela previsão do tempo para os próximos 5 dias. A requisição da API retorna uma lista de previsões para 5 dias com um intervalo de 3 horas cada. Para organizar a resposta da API, as previsões pertencentes ao mesmo dia são agrupadas, é extraída a menor e a maior temperatura do grupo e a descrição utilizada é a que se encontra na metade das previsões do dia (previsão para às 12h em um dia completo).
+
+4. Conversão de unidades de temperatura
+
+   O app contém a opção de escolha da unidade de temperatura, onde Celsius e Fahrenheit são opções. A funcionalidade foi feita utilizando um React Context, que salva a escolha realizada em um estado global.
+
+5. Intercionalização
+
+   O app se encontra disponível nas linguagens inglês, português do Brasil e espanhol. Para realizar a intercionalização, foi utilizada a biblioteca [next-18next](https://github.com/i18next/next-i18next). O idioma da aplicação é visto em seu domínio, onde português é o idioma padrão, inglês é representado pelo domínio /en e espanhol é representado pelo domínio /es. Os textos do site traduzidos se encontram na pasta `/public/locales`.
+
+6. Server Side Rendering
+
+   O framework NextJS oferece as opções de renderização através do servidor Node que roda junto com o projeto. Assim, as requisições de API são feitas no lado do servidor, que devolve o HTML renderizado para o lado do cliente já com os dados da requisição.

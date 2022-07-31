@@ -1,11 +1,4 @@
-import {
-  KeyboardEvent,
-  MouseEvent,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { KeyboardEvent, MouseEvent, useEffect, useRef, useState } from 'react';
 
 import { Container, Option } from './styles';
 
@@ -16,8 +9,9 @@ export type SearchInputProps = {
   items?: {
     key: string;
     value: string;
+    label?: string;
   }[];
-  onSelectItem?: (item: { key: string; value: string }) => void;
+  onSelectItem?: (item: { key: string; value: string; label?: string }) => void;
 };
 
 export const SearchInput = ({
@@ -29,6 +23,7 @@ export const SearchInput = ({
 }: SearchInputProps) => {
   const [open, setOpen] = useState(false);
   const [hover, setHover] = useState(-1);
+  const [display, setDisplay] = useState<string>();
 
   const inputRef = useRef<HTMLInputElement>();
 
@@ -43,6 +38,7 @@ export const SearchInput = ({
   useEffect(() => {
     setOpen(items.length > 0);
     setHover(-1);
+    setDisplay(undefined);
   }, [items]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -57,6 +53,9 @@ export const SearchInput = ({
 
       setHover(prev => Math.min(prev + 1, items.length - 1));
     } else if (key === 'Enter' && onSelectItem && hover !== -1) {
+      setDisplay(items[hover].value);
+      setOpen(false);
+
       onSelectItem(items[hover]);
     }
   };
@@ -67,6 +66,9 @@ export const SearchInput = ({
   ) => {
     e.preventDefault();
 
+    setDisplay(value);
+    setOpen(false);
+
     onSelectItem(item);
   };
 
@@ -75,7 +77,7 @@ export const SearchInput = ({
       <input
         ref={inputRef}
         type="text"
-        value={value}
+        value={display || value}
         placeholder={placeholder}
         onChange={onChange && (e => onChange(e.target.value))}
         onKeyDown={handleKeyDown}
@@ -92,7 +94,7 @@ export const SearchInput = ({
             onMouseEnter={() => setHover(index)}
             onClick={e => handleOptionClick(e, item)}
           >
-            {item.value}
+            {item.label || item.value}
           </Option>
         ))}
       </div>

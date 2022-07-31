@@ -24,20 +24,21 @@ const Home = () => {
   });
 
   const options = useMemo(() => {
-    return suggestions.data.slice(0, 3).map(item => {
-      let value = item.terms[0].value;
+    const list = suggestions.data.slice(0, 3);
 
-      const count = suggestions.data.filter(place => {
-        return place.terms[0].value === value;
-      }).length;
+    return list.map(item => {
+      let label = item.terms[0].value;
+
+      const count = list.filter(place => place.terms[0].value === label).length;
 
       if (count > 1) {
-        value += `, ${item.terms[1].value}`;
+        label += `, ${item.terms[1].value}`;
       }
 
       return {
         key: item.place_id,
-        value,
+        value: item.terms[0].value,
+        label,
       };
     });
   }, [suggestions]);
