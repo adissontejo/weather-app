@@ -4,7 +4,7 @@ export const theme = {
     primary: 'Montserrat',
   },
   media: {
-    mobile: '@media screen and (max-width: 600px)',
+    mobile: '@media screen and (max-width: 768px)',
   },
 };
 

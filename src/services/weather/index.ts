@@ -1,60 +1,79 @@
-import axios, { AxiosResponse } from 'axios';
+import axios from 'axios';
 
 const weatherApi = axios.create({
-  baseURL: 'https://api.openweathermap.org/data/2.5/weather',
+  baseURL: 'https://api.openweathermap.org/data/2.5',
+  params: {
+    appId: process.env.OPEN_WEATHER_API_KEY,
+  },
 });
 
 export type WeatherData = {
-  coord: {
-    lat: number;
-    lon: number;
-  };
-  weather: {
-    id: number;
-    main: string;
-    description: string;
-    icon: string;
-  }[];
-  base: string;
-  main: {
-    temp: number;
-    feels_like: number;
-    temp_min: number;
-    temp_max: number;
-    pressure: number;
-    humidity: number;
-  };
-  visibility: number;
-  wind: {
-    speed: number;
-    deg: number;
-  };
-  clouds: {
-    all: number;
-  };
-  dt: number;
-  sys: {
-    type: number;
-    id: number;
-    message: number;
-    country: string;
-    sunrise: number;
-    sunset: number;
-  };
-  timezone: number;
   id: number;
-  name: string;
-  cod: number;
+  description: string;
+  icon: string;
+  temp: number;
+  tempMin: number;
+  tempMax: number;
 };
 
-export const getWeatherByCity = (city: string, lang: string) => {
-  let language = lang;
-
-  if (language === 'pt-BR') {
-    language = 'pt_br';
+export const getWeather = async (
+  lat: number | string,
+  lon: number | string,
+  lang: string
+) => {
+  if (lang === 'pt-BR') {
+    lang = 'pt_br';
   }
 
-  return weatherApi.get(
-    `?appId=${process.env.OPEN_WEATHER_API_KEY}&q=${city}&lang=${language}`
-  ) as Promise<AxiosResponse<WeatherData>>;
+  const { data } = await weatherApi.get('/weather', {
+    params: {
+      lat,
+      lon,
+      lang,
+    },
+  });
+
+  return {
+    id: data.id,
+    description: data.weather[0].description,
+    icon: data.weather[0].icon,
+    temp: data.main.temp,
+    tempMin: data.main.temp_min,
+    tempMax: data.main.temp_max,
+  } as WeatherData;
+};
+
+export type ForecastData = (WeatherData & {
+  timestamp: number;
+})[];
+
+export const getForecast = async (
+  lat: number | string,
+  lon: number | string,
+  lang: string
+) => {
+  if (lang === 'pt-BR') {
+    lang = 'pt_br';
+  }
+
+  const { data } = await weatherApi.get('/forecast', {
+    params: {
+      lat,
+      lon,
+      lang,
+    },
+  });
+
+  return data.list.map(
+    item =>
+      ({
+        id: item.dt,
+        description: item.weather[0].description,
+        icon: item.weather[0].icon,
+        temp: item.main.temp,
+        tempMin: item.main.temp_min,
+        tempMax: item.main.temp_max,
+        timestamp: item.dt,
+      } as ForecastData[number])
+  ) as ForecastData;
 };

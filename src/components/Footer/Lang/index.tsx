@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -14,7 +13,7 @@ export const Lang = ({ code }: LangProps) => {
   return (
     <Link href={{ pathname, query }} as={asPath} locale={code}>
       <Container>
-        <img src={`/${code}.png`} alt={code} />
+        <img src={`/icons/${code}.png`} alt={code} />
       </Container>
     </Link>
   );

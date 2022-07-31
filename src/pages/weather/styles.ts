@@ -1,13 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-`;
-
 export const Main = styled.main`
   flex: 1;
 
@@ -21,6 +13,7 @@ export const Main = styled.main`
     font-size: 43px;
     text-align: center;
     text-transform: uppercase;
+    letter-spacing: 0.14em;
 
     ${p => p.theme.media.mobile} {
       font-size: 29px;

@@ -1,4 +1,11 @@
-import { KeyboardEvent, useEffect, useId, useRef, useState } from 'react';
+import {
+  KeyboardEvent,
+  MouseEvent,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
 
 import { Container, Option } from './styles';
 
@@ -27,6 +34,10 @@ export const SearchInput = ({
 
   useEffect(() => {
     inputRef.current.focus();
+
+    document.body.addEventListener('click', () => {
+      setOpen(false);
+    });
   }, []);
 
   useEffect(() => {
@@ -50,6 +61,15 @@ export const SearchInput = ({
     }
   };
 
+  const handleOptionClick = (
+    e: MouseEvent,
+    item: { key: string; value: string }
+  ) => {
+    e.preventDefault();
+
+    onSelectItem(item);
+  };
+
   return (
     <Container open={open}>
       <input
@@ -60,7 +80,7 @@ export const SearchInput = ({
         onChange={onChange && (e => onChange(e.target.value))}
         onKeyDown={handleKeyDown}
         onFocus={() => setOpen(items.length > 0)}
-        onBlur={() => [setOpen(false), setHover(-1)]}
+        onClick={e => e.stopPropagation()}
       />
       <div className="options" onMouseLeave={() => setHover(-1)}>
         {items.map((item, index) => (
@@ -70,6 +90,7 @@ export const SearchInput = ({
             aria-selected={hover === index}
             hover={hover === index}
             onMouseEnter={() => setHover(index)}
+            onClick={e => handleOptionClick(e, item)}
           >
             {item.value}
           </Option>

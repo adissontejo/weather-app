@@ -13,16 +13,6 @@ export const ScaleContext = createContext({} as ScaleContextProps);
 export const ScaleProvider = ({ children }) => {
   const [scale, setScale] = useState<Scale>('C');
 
-  useLayoutEffect(() => {
-    setScale((localStorage.getItem('scale') as Scale) || 'C');
-  }, []);
-
-  const changeScale = (scale: Scale) => {
-    setScale(scale);
-
-    localStorage.setItem('scale', scale);
-  };
-
   const format = (kelvin: number, trunc: 'round' | 'min' | 'max' = 'round') => {
     let t = kelvin - 273;
 
@@ -42,7 +32,7 @@ export const ScaleProvider = ({ children }) => {
   };
 
   return (
-    <ScaleContext.Provider value={{ scale, setScale: changeScale, format }}>
+    <ScaleContext.Provider value={{ scale, setScale, format }}>
       {children}
     </ScaleContext.Provider>
   );

@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 export const Main = styled.main`
   flex: 1;
 
@@ -23,11 +14,13 @@ export const Main = styled.main`
 
     font-size: 43px;
     text-align: center;
+    letter-spacing: 0.14em;
 
     display: inline-block;
 
     ${p => p.theme.media.mobile} {
       font-size: 30px;
+      letter-spacing: 0;
     }
   }
 `;

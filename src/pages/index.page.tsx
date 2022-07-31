@@ -1,13 +1,13 @@
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { GetStaticProps } from 'next';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import usePlacesAutocomplete from 'use-places-autocomplete';
+import usePlacesAutocomplete, { getGeocode } from 'use-places-autocomplete';
 
-import { Footer, Header, SearchInput } from '~/components';
+import { SearchInput } from '~/components';
 
-import { Container, Main } from './styles';
+import { Main } from './styles';
 
 const Home = () => {
   const router = useRouter();
@@ -31,8 +31,6 @@ const Home = () => {
         return place.terms[0].value === value;
       }).length;
 
-      console.log(count);
-
       if (count > 1) {
         value += `, ${item.terms[1].value}`;
       }
@@ -44,23 +42,35 @@ const Home = () => {
     });
   }, [suggestions]);
 
+  const handleSelectItem = async (item: { key: string; value: string }) => {
+    const data = await getGeocode({
+      placeId: item.key,
+    });
+
+    router.push(
+      {
+        pathname: '/weather',
+        query: {
+          lat: data[0].geometry.location.lat(),
+          lng: data[0].geometry.location.lng(),
+          city: item.value,
+        },
+      },
+      '/weather'
+    );
+  };
+
   return (
-    <Container>
-      <Header />
-      <Main>
-        <h1>{t('title')}</h1>
-        <SearchInput
-          value={value}
-          placeholder={t('search-placeholder')}
-          items={options}
-          onChange={setValue}
-          onSelectItem={item =>
-            router.push(`/city?q=${item.value.replace(' ', '+')}`)
-          }
-        />
-      </Main>
-      <Footer />
-    </Container>
+    <Main>
+      <h1>{t('title')}</h1>
+      <SearchInput
+        value={value}
+        placeholder={t('search')}
+        items={options}
+        onChange={setValue}
+        onSelectItem={handleSelectItem}
+      />
+    </Main>
   );
 };
 

@@ -19,8 +19,12 @@ export const GlobalStyle = createGlobalStyle`
   body {
     width: 100vw;
     height: 100vh;
-    background: url(/sky-background.png) no-repeat center;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: url(/icons/sky-background.png) no-repeat center;
     background-size: cover;
+    background-attachment: fixed;
   }
 
   body, input, textarea, select, button {
@@ -31,5 +35,14 @@ export const GlobalStyle = createGlobalStyle`
   input, button, select {
     border: none;
     outline: none;
+  }
+
+  .app {
+    width: 100vw;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
