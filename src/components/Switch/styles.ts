@@ -20,6 +20,8 @@ export type ToggleProps = {
 export const Toggle = styled.label<ToggleProps>`
   margin: 0 5px;
 
+  cursor: pointer;
+
   > .track {
     position: relative;
 
@@ -29,8 +31,6 @@ export const Toggle = styled.label<ToggleProps>`
     border-radius: 20px;
 
     transition: background 0.3s;
-
-    cursor: pointer;
 
     > .thumb {
       position: absolute;

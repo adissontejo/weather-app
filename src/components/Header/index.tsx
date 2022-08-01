@@ -13,10 +13,10 @@ export const Header = () => {
   const { scale, setScale } = useScale();
 
   return (
-    <Container>
+    <Container data-testid="header-component">
       {router.pathname !== '/' && (
         <Link href="/">
-          <Back>
+          <Back data-testid="header-component-back" role="button">
             <img src="/icons/arrow-back.svg" alt="back" />
           </Back>
         </Link>

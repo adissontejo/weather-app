@@ -22,18 +22,19 @@ export function Switch<T>({
   const inputId = useId();
 
   return (
-    <Container>
+    <Container data-testid="switch-component">
       {disabledText && <small>{disabledText}</small>}
       <input
         id={inputId}
         type="checkbox"
         checked={value === enabledValue}
+        readOnly={!onChange}
         onChange={
           onChange &&
           (e => onChange(e.target.checked ? enabledValue : disabledValue))
         }
       />
-      <Toggle htmlFor={inputId} enabled={value === enabledValue}>
+      <Toggle role="switch" htmlFor={inputId} enabled={value === enabledValue}>
         <div className="track">
           <div className="thumb" />
         </div>

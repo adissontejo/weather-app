@@ -97,6 +97,10 @@ npm install -g yarn
 
       Pasta com os estilos e temas globais da aplicação.
 
+    - /tests
+
+      Pasta com os testes unitários desenvolvidos para as funcionalidades da aplicação. Essa pasta funciona como um "clone" da pasta src, onde a estrutura corresponde a testes dos conteúdos da pasta src.
+
     - /types
 
       Pasta contendo arquivos para tipagem e auxílio na linguagem Typescript para facilitar o desenvolvimento.
@@ -126,3 +130,7 @@ npm install -g yarn
 6. Server Side Rendering
 
    O framework NextJS oferece as opções de renderização através do servidor Node que roda junto com o projeto. Assim, as requisições de API são feitas no lado do servidor, que devolve o HTML renderizado para o lado do cliente já com os dados da requisição.
+
+7. Testes unitários
+
+   A aplicação contém os respectivos testes unitários para seus componentes e funcionalidades, onde esses se encontram na pasta `/src/tests`.

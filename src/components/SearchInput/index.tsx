@@ -9,9 +9,9 @@ export type SearchInputProps = {
   items?: {
     key: string;
     value: string;
-    label?: string;
+    label: string;
   }[];
-  onSelectItem?: (item: { key: string; value: string; label?: string }) => void;
+  onSelectItem?: (item: { key: string; value: string; label: string }) => void;
 };
 
 export const SearchInput = ({
@@ -62,7 +62,7 @@ export const SearchInput = ({
 
   const handleOptionClick = (
     e: MouseEvent,
-    item: { key: string; value: string }
+    item: { key: string; value: string; label: string }
   ) => {
     e.preventDefault();
 
@@ -73,10 +73,16 @@ export const SearchInput = ({
   };
 
   return (
-    <Container open={open}>
+    <Container
+      aria-expanded={open}
+      open={open}
+      data-testid="search-input-component"
+    >
       <input
         ref={inputRef}
         type="text"
+        data-testid="search-input"
+        aria-label={placeholder}
         value={display || value}
         placeholder={placeholder}
         onChange={onChange && (e => onChange(e.target.value))}
@@ -84,7 +90,11 @@ export const SearchInput = ({
         onFocus={() => setOpen(items.length > 0)}
         onClick={e => e.stopPropagation()}
       />
-      <div className="options" onMouseLeave={() => setHover(-1)}>
+      <div
+        className="options"
+        data-testid="search-input-options"
+        onMouseLeave={() => setHover(-1)}
+      >
         {items.map((item, index) => (
           <Option
             key={item.key}
@@ -94,7 +104,7 @@ export const SearchInput = ({
             onMouseEnter={() => setHover(index)}
             onClick={e => handleOptionClick(e, item)}
           >
-            {item.label || item.value}
+            {item.label}
           </Option>
         ))}
       </div>
