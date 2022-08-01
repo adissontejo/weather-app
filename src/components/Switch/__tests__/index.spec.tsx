@@ -1,7 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import { Switch, SwitchProps } from '~/components';
 import { render } from '~/tests/utils';
+
+import { Switch, SwitchProps } from '..';
 
 const getData = (
   props: Partial<SwitchProps<string>> = {}

@@ -1,8 +1,9 @@
 import { screen } from '@testing-library/react';
 
-import { Header } from '~/components';
 import { router, useRouter } from '~/tests/mocks';
 import { render } from '~/tests/utils';
+
+import { Header } from '..';
 
 describe('components#Header', () => {
   afterEach(() => {

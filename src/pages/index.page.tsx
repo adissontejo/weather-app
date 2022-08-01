@@ -14,12 +14,10 @@ const Home = () => {
 
   const { t } = useTranslation('home');
 
-  const lang = router.locale;
-
   const { value, setValue, suggestions } = usePlacesAutocomplete({
     requestOptions: {
       types: ['(cities)'],
-      language: lang,
+      language: router.locale,
     },
   });
 

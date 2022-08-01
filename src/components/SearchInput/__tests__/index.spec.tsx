@@ -1,7 +1,8 @@
 import { fireEvent, screen } from '@testing-library/react';
 
-import { SearchInput, SearchInputProps } from '~/components';
 import { render } from '~/tests/utils';
+
+import { SearchInput, SearchInputProps } from '..';
 
 const getData = (props: Partial<SearchInputProps> = {}): SearchInputProps => ({
   value: 'value',

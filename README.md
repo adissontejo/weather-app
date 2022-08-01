@@ -6,6 +6,7 @@ Este é um projeto feito para a seleção do estágio de desenvolvedor frontend 
 - [Rodando o projeto](#rodando-o-projeto)
 - [Estrutura de pastas](#estrutura-de-pastas)
 - [Funcionalidades da aplicação](#funcionalidades-da-aplicação)
+- [Ferramentas de desenvolvimento](#ferramentas-de-desenvolvimento)
 
 ## Tecnologias
 
@@ -99,7 +100,7 @@ npm install -g yarn
 
     - /tests
 
-      Pasta com os testes unitários desenvolvidos para as funcionalidades da aplicação. Essa pasta funciona como um "clone" da pasta src, onde a estrutura corresponde a testes dos conteúdos da pasta src.
+      Pasta com setups para o ambiente de testes criado com jest.
 
     - /types
 
@@ -131,6 +132,10 @@ npm install -g yarn
 
    O framework NextJS oferece as opções de renderização através do servidor Node que roda junto com o projeto. Assim, as requisições de API são feitas no lado do servidor, que devolve o HTML renderizado para o lado do cliente já com os dados da requisição.
 
-7. Testes unitários
+## Ambiente de testes
 
-   A aplicação contém os respectivos testes unitários para seus componentes e funcionalidades, onde esses se encontram na pasta `/src/tests`.
+Para testagem de componentes, páginas e funcionalidades no projeto, foi criado um ambiente de testes utilizando [Jest](https://jestjs.io). A pasta `src/tests` contém o setup do ambiente e os testes unitários se encontram junto aos módulos testados nas pastas `__tests__`. Para rodar todos os testes, use o seguinte comando:
+
+```bash
+yarn test
+```

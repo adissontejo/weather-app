@@ -1,4 +1,4 @@
-import { createContext, useLayoutEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 export type Scale = 'C' | 'F';
 

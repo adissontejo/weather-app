@@ -2,7 +2,9 @@ import { NextRouter } from 'next/router';
 
 export const router = {
   pathname: '/',
-} as NextRouter;
+  query: {},
+  push: jest.fn(),
+} as unknown as NextRouter;
 
 export const useRouter = jest.fn(() => router);
 
