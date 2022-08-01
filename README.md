@@ -32,7 +32,7 @@ npm install -g yarn
 
 - Configurações de variáveis de ambiente
 
-  Para a utilização das APIs do projeto, é necessária a configuração das chaves de API de cada uma delas. Portanto, copie o conteúdo do arquivo `.env.example` e cole-o em um novo arquivo `.env` na raíz do projeto, onde:
+  Para a utilização das APIs do projeto, é necessária a configuração das chaves de API de cada uma delas. Portanto, copie o conteúdo do arquivo `.env.example` e cole-o em um novo arquivo `.env.local` na raíz do projeto, onde:
 
   1. O campo `GOOGLE_MAPS_API_KEY` deve ser preenchido com a chave da API do Google. A chave deve ser habilitada pelo [Google Cloud Console](https://console.cloud.google.com/) e as APIs `Maps Javascript`, `Places` e `Geocoding` devem ser ativadas para completo funcionamento do projeto.
   2. O campo `OPEN_WEATHER_API_KEY` deve ser preenchido com a chave da API [Open Weather](https://openweathermap.org/).

@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const { parsed: env } = require('dotenv').config();
+
 const { i18n } = require('./next-i18next.config');
 
 /** @type {import('next').NextConfig} */
@@ -11,10 +11,6 @@ const nextConfig = {
     domains: ['openweathermap.org'],
   },
   i18n,
-  webpack(config) {
-    config.plugins.push(new webpack.EnvironmentPlugin(env));
-    return config;
-  },
 };
 
 module.exports = nextConfig;
