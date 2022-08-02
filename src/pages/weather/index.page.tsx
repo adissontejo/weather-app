@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -22,6 +23,9 @@ const Weather: NextPage<WeatherProps> = ({ data }) => {
 
   return (
     <Main>
+      <Head>
+        <title>{router.query.city}</title>
+      </Head>
       <h1>{router.query.city}</h1>
       <p className="description">{data.description}</p>
       <Display>

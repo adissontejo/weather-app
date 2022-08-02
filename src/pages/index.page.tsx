@@ -1,5 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { GetStaticProps } from 'next';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
@@ -70,6 +71,9 @@ const Home = () => {
 
   return (
     <Main>
+      <Head>
+        <title>Weather App</title>
+      </Head>
       <h1>{t('title')}</h1>
       <SearchInput
         value={value}

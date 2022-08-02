@@ -1,4 +1,5 @@
 import { GetServerSideProps, NextPage } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -25,6 +26,9 @@ const DailyForecast: NextPage<DailyForecastProps> = ({ data }) => {
 
   return (
     <Main>
+      <Head>
+        <title>{router.query.city}</title>
+      </Head>
       <h1>{router.query.city}</h1>
       <p className="description">{t('text')}</p>
       <div className="days">
