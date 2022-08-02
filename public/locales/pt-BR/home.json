@@ -1,4 +1,5 @@
 {
   "title": "Como está o tempo hoje?",
-  "search": "Digite o nome da cidade"
+  "search": "Digite o nome da cidade",
+  "error": "Ocorreu um erro. Tente novamente mais tarde."
 }

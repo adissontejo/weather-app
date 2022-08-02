@@ -66,7 +66,7 @@ export const SearchInput = ({
   ) => {
     e.preventDefault();
 
-    setDisplay(value);
+    setDisplay(item.value);
     setOpen(false);
 
     onSelectItem(item);

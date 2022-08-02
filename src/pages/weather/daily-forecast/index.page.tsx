@@ -55,24 +55,33 @@ export const getServerSideProps: GetServerSideProps<
   if (!query.lat || !query.lng || !query.city) {
     return {
       redirect: {
+        destination: `/${locale === 'pt-BR' ? '' : locale}`,
         permanent: false,
-        destination: '/',
       },
     };
   }
 
-  const data = await getForecast(
-    query.lat as string,
-    query.lng as string,
-    locale
-  );
+  try {
+    const data = await getForecast(
+      query.lat as string,
+      query.lng as string,
+      locale
+    );
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'forecast'])),
-      data,
-    },
-  };
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common', 'forecast'])),
+        data,
+      },
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        destination: `/${locale === 'pt-BR' ? '' : locale}?error`,
+        permanent: false,
+      },
+    };
+  }
 };
 
 export default DailyForecast;

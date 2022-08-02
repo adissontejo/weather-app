@@ -55,24 +55,33 @@ export const getServerSideProps: GetServerSideProps<WeatherProps> = async ({
   if (!query.lat || !query.lng || !query.city) {
     return {
       redirect: {
+        destination: `/${locale === 'pt-BR' ? '' : locale}`,
         permanent: false,
-        destination: '/',
       },
     };
   }
 
-  const data = await getWeather(
-    query.lat as string,
-    query.lng as string,
-    locale
-  );
+  try {
+    const data = await getWeather(
+      query.lat as string,
+      query.lng as string,
+      locale
+    );
 
-  return {
-    props: {
-      ...(await serverSideTranslations(locale, ['common', 'weather'])),
-      data,
-    },
-  };
+    return {
+      props: {
+        ...(await serverSideTranslations(locale, ['common', 'weather'])),
+        data,
+      },
+    };
+  } catch (e) {
+    return {
+      redirect: {
+        destination: `/${locale === 'pt-BR' ? '' : locale}?error`,
+        permanent: false,
+      },
+    };
+  }
 };
 
 export default Weather;
