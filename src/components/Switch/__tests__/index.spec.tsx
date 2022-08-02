@@ -28,7 +28,7 @@ describe('component#Switch', () => {
           <Switch {...enabledData} />
         </>
       );
-      const [disabledLabel, enabledLabel] = screen.getAllByRole('switch');
+      const [disabledLabel, enabledLabel] = screen.getAllByRole('button');
 
       fireEvent.click(disabledLabel);
       fireEvent.click(enabledLabel);

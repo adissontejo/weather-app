@@ -1,14 +1,21 @@
 import { GetServerSidePropsContext } from 'next';
 import { screen } from '@testing-library/react';
 
-import { getWeather, router, t, useRouter, weatherData } from '~/tests/mocks';
+import { forecastData, getForecast, router, t, useRouter } from '~/tests/mocks';
 import { render } from '~/tests/utils';
 
-import Weather, { getServerSideProps } from '../index.page';
+import DailyForecast, { getServerSideProps } from '../index.page';
+import { groupByDay } from '../groupByDay';
 
-describe('pages#Weather', () => {
+describe('pages#DailyForecast', () => {
   describe('#rendering', () => {
-    it('should render weather data and city name', () => {
+    it('should render translated texts', () => {
+      render(<DailyForecast data={forecastData} />);
+
+      screen.getByText(t('text'));
+    });
+
+    it('should render city name', () => {
       useRouter.mockReturnValueOnce({
         ...router,
         query: {
@@ -16,16 +23,19 @@ describe('pages#Weather', () => {
         },
       });
 
-      render(<Weather data={weatherData} />);
+      render(<DailyForecast data={forecastData} />);
 
-      screen.getByText(weatherData.description);
       screen.getByText('city');
     });
 
-    it('should render translated texts', () => {
-      render(<Weather data={weatherData} />);
+    it('should render API response data', () => {
+      render(<DailyForecast data={forecastData} />);
 
-      screen.getByText(t('forecast'));
+      const days = groupByDay(forecastData, 'pt-BR');
+
+      days.forEach(item => {
+        screen.getByText(item.description);
+      });
     });
   });
 
@@ -49,7 +59,7 @@ describe('pages#Weather', () => {
 
         expect(data).toHaveProperty(path);
         expect(data).toHaveProperty(`${path}.initialLocale`, locale);
-        expect(data).toHaveProperty(`${path}.ns`, ['common', 'weather']);
+        expect(data).toHaveProperty(`${path}.ns`, ['common', 'forecast']);
       }
     });
 
@@ -65,7 +75,7 @@ describe('pages#Weather', () => {
 
       const data = await getServerSideProps(ctx);
 
-      expect(data).toHaveProperty('props.data', weatherData);
+      expect(data).toHaveProperty('props.data', forecastData);
     });
 
     it('should return redirect when params are not provided', async () => {
@@ -77,7 +87,7 @@ describe('pages#Weather', () => {
     });
 
     it('should return redirect when API returns error', async () => {
-      getWeather.mockRejectedValueOnce(new Error('error'));
+      getForecast.mockRejectedValueOnce(new Error('error'));
 
       const ctx = {
         locale: 'pt-BR',

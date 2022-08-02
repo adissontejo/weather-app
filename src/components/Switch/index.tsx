@@ -34,7 +34,7 @@ export function Switch<T>({
           (e => onChange(e.target.checked ? enabledValue : disabledValue))
         }
       />
-      <Toggle role="switch" htmlFor={inputId} enabled={value === enabledValue}>
+      <Toggle role="button" htmlFor={inputId} enabled={value === enabledValue}>
         <div className="track">
           <div className="thumb" />
         </div>

@@ -41,7 +41,7 @@ export const usePlacesAutocomplete = jest.fn(() => ({
   ...placesAutocomplete,
 }));
 
-export const getGeocode = jest.fn(() => [
+export const getGeocode = jest.fn(async () => [
   {
     geometry: {
       location: {

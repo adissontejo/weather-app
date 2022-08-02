@@ -11,12 +11,6 @@ describe('components#Header', () => {
   });
 
   describe('#rendering', () => {
-    it('should render switch properly', () => {
-      render(<Header />);
-
-      screen.getByTestId('switch-component');
-    });
-
     it('should render back button only when route is not initial route', () => {
       useRouter.mockReturnValueOnce({
         ...router,
